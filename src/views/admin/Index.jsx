@@ -1,14 +1,14 @@
 
 import AdminLayout from "../../component/layout/AdminLayout";
 import GoogleMaps from "../../component/maps/GoogleMap";
-import Map from "../../component/maps/OpenStreetMap";
+// import Map from "../../component/maps/OpenStreetMap";
 
 
 const Index = (  ) => {
 
     return(
         <AdminLayout>
-            <Map />
+            <GoogleMaps />
         </AdminLayout>
     )
 };
