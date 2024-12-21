@@ -26,8 +26,6 @@ const MapViewer = () => {
         }
     };
 
-    
-
     const handleUserClick = (id) => {
         setCurrentUserId(id);
         isLoadingMapData(true);

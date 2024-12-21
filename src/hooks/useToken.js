@@ -7,4 +7,8 @@ const saveToken = (token) => {
     sessionStorage.setItem("token", token);
 };
 
-export { useToken, saveToken };
+const getToken = () => {
+    return sessionStorage.getItem("token");
+}
+
+export { useToken, saveToken, getToken };
