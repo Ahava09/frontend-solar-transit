@@ -6,6 +6,8 @@ import Image from "../../component/form/Image";
 import Input from "../../component/form/Input";
 import Link from "../../component/basic/Link";
 import ButtonComponent from "../../component/basic/ButtonComponent";
+import { login } from "../../services/CoordinateServices";
+import { saveToken } from "../../hooks/useToken";
 
 const Login = () => {
 
@@ -17,18 +19,25 @@ const Login = () => {
     const navigate = useNavigate();
 
 
-    const handleLogin = () => {
-        console.log("usdifposd = == = " + username);
-        console.log("usdifposd 2 = == = " + password);
+    const handleLogin = async () => {
         if( username && password ){
-            // Manandrana iany ve
-            if( username === 'mino' && password === 'mino' ){
-                // set Token no eto rehefa tena mandeha
-                localStorage.setItem("token", "efa misy");
+
+            const {status, data} = await login( username, password );
+
+            if( status >= 200 && status <= 205 ) {
+                saveToken(data);
                 navigate("/admin");
-            }else{
-                setLoginError("Veuillez verifier vos identifiants");
+            } else if (status >= 400 && status <= 420){
+                setLoginError(data);
             }
+
+            // if( username === 'mino' && password === 'mino' ){
+            //     // set Token no eto rehefa tena mandeha
+            //     localStorage.setItem("token", "efa misy");
+            //     navigate("/admin");
+            // }else{
+            //     setLoginError("Veuillez verifier vos identifiants");
+            // }
         }
 
     };

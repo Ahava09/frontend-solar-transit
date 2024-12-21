@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { APIProvider, Map, MapCameraChangedEvent } from "@vis.gl/react-google-maps";
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import useGoogleMap from "../../hooks/useGoogleMap";
 
 const GoogleMaps = () => {
@@ -14,22 +14,17 @@ const GoogleMaps = () => {
         zoom: 12
     };
 
-    const ControlledMap = () => {
-        const [cameraProps, setCameraProps] =
-            useState(INITIAL_CAMERA);
-        const handleCameraChange = useCallback((ev) =>
-            setCameraProps(ev.detail)
-        );
+    const [cameraProps, setCameraProps] = useState(INITIAL_CAMERA);
+    const handleCameraChange = useCallback((ev) =>
+        setCameraProps(ev.detail)
+    , []);
         
-        return <Map {...cameraProps} onCameraChanged={handleCameraChange}></Map>;
-    };
-
-    const Maps = ControlledMap();
-
     return (
         <APIProvider apiKey={API_KEY}>
             <div class="map" style={{height: "500px"}}>
-                { Maps }
+                <Map {...cameraProps} onCameraChanged={handleCameraChange}>
+                    {/* Marker no ato marker bedebe */}
+                </Map>            
             </div>
         </APIProvider>
     )

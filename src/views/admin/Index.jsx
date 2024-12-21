@@ -1,10 +1,11 @@
 
 import AdminLayout from "../../component/layout/AdminLayout";
 import GoogleMaps from "../../component/maps/GoogleMap";
+import Authenticated from "../../context/Authentified";
 // import Map from "../../component/maps/OpenStreetMap";
 
 
-const Index = (  ) => {
+const Index = () => {
 
     return(
         <AdminLayout>
@@ -13,4 +14,5 @@ const Index = (  ) => {
     )
 };
 
-export default Index;
+export default Authenticated(Index);
+// export default Index;
