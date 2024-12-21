@@ -77,8 +77,8 @@ const GoogleMaps = ( {userId} ) => {
             isFetchingData(true);
             if (!user) return;
             const data = await getLocalisation(user);
-            const coordinate = data.data;
-            setMarkers([...markers, coordinate]);
+            const { latitude, longitude } = data.data;  
+            setMarkers((prevMarkers) => [...prevMarkers, { lat: latitude, lng: longitude }]);
             return data;
         }catch(error){
             console.error(error);
@@ -106,15 +106,23 @@ const GoogleMaps = ( {userId} ) => {
         if(userId) fetch( userId );
         else isFetchingData(false);
         console.log(markers)
-
-        const realTime = setInterval( () => {
+        setInterval( () => {
             fetchRealTimeData(userId);
-        }, 10000 );
+        }, 1000 );
 
         return () => {
-            clearInterval(realTime);
+            // clearInterval(realTime);
         }
     }, []);
+
+    // const[index,setIndex]=useState(0);
+    //     useEffect(()=>{
+    //     //getData()
+
+    //     },[index])
+    //     setInterval(()=>{
+    //     setIndex(index++)
+    //     },1000)
         
     return (
             <div class="map" style={{height: "500px"}}>
