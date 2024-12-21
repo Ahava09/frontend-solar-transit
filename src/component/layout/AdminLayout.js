@@ -3,10 +3,12 @@ import Header from "../header/Header";
 const AdminLayout = ( {children} ) => {
 
     return (
-        <>
-            <Header />
-            { children }
-        </>
+        <div className="grid grid-cols-1">
+            <div className="w-12/12 ">   
+                <Header />
+                { children }
+            </div>
+        </div>
     )
 
 };

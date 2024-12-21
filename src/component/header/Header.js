@@ -23,7 +23,7 @@ const Header = () => {
                     </div>
                 </div>
             </nav>
-            <Sidebar />
+            {/* <Sidebar /> */}
         </>
     
 

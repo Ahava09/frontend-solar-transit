@@ -8,9 +8,24 @@ import {useToken} from "../hooks/useToken";
 import axios from 'axios';
 import getCookie from './Cookie.service';
 
-const useFetchLocalisations = () => {
-    const token = useToken();
-    const url = APIPATH.login;
+const fetchLocalisations = async ( id ) => {
+    
+    const url = APIPATH.deplacement + "/" + id;
+
+    const {data} = await axios.get(url);
+
+    return data;
+
+};
+
+
+const fetchUtilisateurs = async () => {
+    
+    const url = APIPATH.users;
+
+    const {data} = await axios.get( url );
+
+    return data;
 
 };
 
@@ -55,5 +70,7 @@ const login = async ( username, password ) => {
 
 
 export {
-    login
+    login,
+    fetchUtilisateurs,
+    fetchLocalisations
 }

@@ -1,13 +1,18 @@
-import { useState, useCallback } from "react";
-import { APIProvider, Map } from "@vis.gl/react-google-maps";
+import { useState, useCallback, useEffect } from "react";
+import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
 import useGoogleMap from "../../hooks/useGoogleMap";
 
-const GoogleMaps = () => {
+const GoogleMaps = ( {userId} ) => {
+    
+    const [fetchData, isFetchingData] = useState(false);
+    const [markers, setMarkers] = useState([]);
+
     const API_KEY = useGoogleMap();
     const center = {
         lat: -18.8792,
         lng: 47.5079,
     };
+
 
     const INITIAL_CAMERA = {
         center: center,
@@ -18,12 +23,32 @@ const GoogleMaps = () => {
     const handleCameraChange = useCallback((ev) =>
         setCameraProps(ev.detail)
     , []);
+
+    const fetch = async ( user ) => {
+        try{
+
+        }catch(error){
+            console.error(error);
+        }finally{
+
+        }
+    }
+
+    useEffect(()=> {
+        // Miantso ny api maka ny coordonées ana olona iray
+
+
+
+        return () => {
+
+        }
+    }, []);
         
     return (
         <APIProvider apiKey={API_KEY}>
             <div class="map" style={{height: "500px"}}>
                 <Map {...cameraProps} onCameraChanged={handleCameraChange}>
-                    {/* Marker no ato marker bedebe */}
+                    <Marker position={center} />
                 </Map>            
             </div>
         </APIProvider>
