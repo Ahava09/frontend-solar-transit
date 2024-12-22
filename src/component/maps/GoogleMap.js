@@ -37,8 +37,6 @@ const GoogleMaps = ( {userId} ) => {
             const data = await fetchLocalisations(user);
 
             console.log(data);
-            // okey inona no atao eto avy eo
-            // Mila maka anle coordonnées
             const marks = [];
 
 
@@ -102,7 +100,6 @@ const GoogleMaps = ( {userId} ) => {
     }, [markers, map, maps]);
 
     useEffect(()=> {
-        // Miantso ny api maka ny coordonées ana olona iray
         if(userId) fetch( userId );
         else isFetchingData(false);
         console.log(markers)
@@ -115,21 +112,26 @@ const GoogleMaps = ( {userId} ) => {
         }
     }, []);
 
-    // const[index,setIndex]=useState(0);
-    //     useEffect(()=>{
-    //     //getData()
-
-    //     },[index])
-    //     setInterval(()=>{
-    //     setIndex(index++)
-    //     },1000)
         
     return (
             <div class="map" style={{height: "500px"}}>
                 {
                     initalizeMap &&
                     <Map mapId={"f75d626b86ee154c"} {...cameraProps} onCameraChanged={handleCameraChange}>
-                        { !fetchData && markers.map( (marker,index) => <CustomPin key={index} lat={marker.lat} long={marker.lng} /> ) }
+                        {
+                            !fetchData && markers.map((marker, index) => {
+                                const isLastMarker = index === markers.length - 1;
+
+                                return (
+                                <CustomPin 
+                                    key={index} 
+                                    lat={marker.lat} 
+                                    long={marker.lng} 
+                                    isLast={isLastMarker} // Passer la prop isLast pour colorer le dernier marqueur
+                                />
+                                );
+                            })
+                            }
                     </Map>
                 }
             </div>

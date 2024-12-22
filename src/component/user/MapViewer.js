@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Link from "../basic/Link";
-import List from "../basic/List";
+// import Link from "../basic/Link";
+// import List from "../basic/List";
 import GoogleMaps from "../maps/GoogleMap";
-import ListUser from "./ListUser";
+// import ListUser from "./ListUser";
 import { fetchUtilisateurs } from "../../services/CoordinateServices";
 
 
@@ -40,24 +40,31 @@ const MapViewer = () => {
     }, []);
 
     return (
-        <div className="grid grid-cols-2">
-            <div className="col-start-0">
-                <div class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                    {
-                        !loadUser && users.map( (user) => (
-                            <button onClick={() => handleUserClick(user.id)} aria-current="true" type="button" class="w-full my-2 px-4 py-2 font-medium text-left rtl:text-right text-white bg-blue-700 border-b border-gray-200 rounded-t-lg cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600">
-                                {user.name}
-                            </button>
-                        ) )
-                    }
-                </div>
-            </div>
-            <div className="col-start-2">
-                {
-                    !loadMapData &&  <GoogleMaps userId={currentUserId} />
-                }
-            </div>
+        <div className="grid grid-cols-[12rem_1fr] gap-4">
+    <div className="w-48">
+        <div className="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            {
+                !loadUser && users.map((user) => (
+                    <button
+                        onClick={() => handleUserClick(user.id)}
+                        aria-current="true"
+                        type="button"
+                        className="w-full my-2 px-4 py-2 font-medium text-left rtl:text-right text-white bg-blue-700 border-b border-gray-200 rounded-t-lg cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600"
+                    >
+                        {user.name}
+                    </button>
+                ))
+            }
         </div>
+    </div>
+    <div className="w-full">
+        {
+            !loadMapData && <GoogleMaps userId={currentUserId} />
+        }
+    </div>
+</div>
+
+
     )
 
 };

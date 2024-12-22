@@ -6,6 +6,7 @@ const APIPATH = {
     "deplacement" : HOST + "api/users",
     "login" : HOST + "api/login",
     "users" : HOST + "api/users",
+    "address" : HOST + "api/geocoding",
 
 };
 

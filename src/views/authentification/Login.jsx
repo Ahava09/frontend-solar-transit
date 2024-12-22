@@ -30,14 +30,6 @@ const Login = () => {
             } else if (status >= 400 && status <= 420){
                 setLoginError(data);
             }
-
-            // if( username === 'mino' && password === 'mino' ){
-            //     // set Token no eto rehefa tena mandeha
-            //     localStorage.setItem("token", "efa misy");
-            //     navigate("/admin");
-            // }else{
-            //     setLoginError("Veuillez verifier vos identifiants");
-            // }
         }
 
     };
