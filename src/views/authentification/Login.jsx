@@ -38,7 +38,7 @@ const Login = () => {
         <>
             <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
                 <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <Image classes={"mx-auto h-10 w-auto"} alternativeText="Your Company" imageSource={"https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"} />
+                    <Image classes={"mx-auto h-10 w-auto"} alternativeText="Company Tracking" imageSource={"/logo.png"}  />
                     <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Se connecter</h2>
                 </div>
 
