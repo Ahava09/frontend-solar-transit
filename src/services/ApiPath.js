@@ -1,4 +1,4 @@
-const HOST = "http://localhost:8000/";
+const HOST = " https://learning-squid-teaching.ngrok-free.app/";
 
 const APIPATH = {
 

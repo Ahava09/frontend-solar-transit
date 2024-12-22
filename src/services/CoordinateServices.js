@@ -14,7 +14,8 @@ const fetchLocalisations = async ( id ) => {
 
     const {data} = await axios.get(url, {
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            'ngrok-skip-browser-warning': 'value'
         }
     });
 
@@ -31,7 +32,9 @@ const fetchUtilisateurs = async () => {
 
     const {data} = await axios.get( url, {
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            'ngrok-skip-browser-warning': 'value'
+
         }
     } );
 
@@ -46,7 +49,9 @@ const getLocalisation = async ( userid ) => {
 
     const {data} = await axios.get( url, {
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            'ngrok-skip-browser-warning': 'value'
+
         }
     } );
 
@@ -66,6 +71,8 @@ const login = async ( username, password ) => {
     const {status, data} = await axios.post(url, body, {
         'headers' : {
             'Content-Type' : 'application/json',
+            'ngrok-skip-browser-warning': 'value'
+
         },
         withCredentials: true
     });
@@ -98,6 +105,8 @@ const search = async ( address ) => {
     const {status, data} = await axios.post(url, body, {
         'headers' : {
             'Content-Type' : 'application/json',
+            'ngrok-skip-browser-warning': 'value'
+
         },
         withCredentials: true
     });
@@ -106,7 +115,10 @@ const search = async ( address ) => {
 
     if(status >= 200 && status <= 205) {
         console.log(data);
-        d = data.token;
+        d = {
+            latitude: data.latitude,            
+            longitude: data.longitude,            
+        }
        
     }else if( status >= 400 && status <= 405 ) {
         d = data.message;

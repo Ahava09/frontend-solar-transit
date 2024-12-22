@@ -19,7 +19,7 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path='/' element={ <Login /> } />
-          <Route path='/admin' element={ <Index /> } />
+          <Route path='/map' element={ <Index /> } />
         </Routes>
       </BrowserRouter>
     </APIProvider>

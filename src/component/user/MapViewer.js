@@ -6,7 +6,7 @@ import GoogleMaps from "../maps/GoogleMap";
 import { fetchUtilisateurs } from "../../services/CoordinateServices";
 
 
-const MapViewer = () => {
+const MapViewer = ({localisation}) => {
 
     const[users, setUsers] = useState([]);
     const[currentUserId, setCurrentUserId] = useState("");
@@ -59,7 +59,7 @@ const MapViewer = () => {
     </div>
     <div className="w-full">
         {
-            !loadMapData && <GoogleMaps userId={currentUserId} />
+            !loadMapData && <GoogleMaps data={localisation} userId={currentUserId} />
         }
     </div>
 </div>

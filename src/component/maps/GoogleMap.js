@@ -1,24 +1,22 @@
 import { useState, useCallback, useEffect } from "react";
-import { APIProvider, Map, Marker, useMap, useMapsLibrary,  } from "@vis.gl/react-google-maps";
-import useGoogleMap from "../../hooks/useGoogleMap";
+import { Map, useMap, useMapsLibrary,  } from "@vis.gl/react-google-maps";
 import { fetchLocalisations, getLocalisation } from "../../services/CoordinateServices";
 import CustomPin from "./CustomPin";
 
-const GoogleMaps = ( {userId} ) => {
-    
-    const [fetchData, isFetchingData] = useState(false);
-    const [initalizeMap, isInitialized] = useState(false);
-    const [markers, setMarkers] = useState([]);
+const GoogleMaps = ( {userId, data} ) => {
 
+    const [fetchData, isFetchingData] = useState(false);
+    const [reloadMap, setReloadMap] = useState(false);
+    const [markers, setMarkers] = useState([]);
+    
     const map = useMap();
     const maps = useMapsLibrary("maps");    
-
-    const center = {
-        lat: -18.8792,
-        lng: 47.5079,
-    };
-
-
+    
+    const center = data
+        ? { lat: data.latitude, lng: data.longitude }
+        : { lat: -18.8792, lng: 47.5079 };
+    
+    
     const INITIAL_CAMERA = {
         center: center,
         zoom: 12
@@ -32,7 +30,6 @@ const GoogleMaps = ( {userId} ) => {
     const fetch = async ( user ) => {
         try{
             isFetchingData(true);
-            isInitialized(false);
             if (!user) return;
             const data = await fetchLocalisations(user);
 
@@ -50,7 +47,7 @@ const GoogleMaps = ( {userId} ) => {
                 marks.push(newMark);
             });
             const initial = marks[0];
-        
+    
             const initialCamera = {
                 center: initial,
                 zoom: 12
@@ -65,7 +62,6 @@ const GoogleMaps = ( {userId} ) => {
             console.error(error);
         }finally{
             isFetchingData(false);
-            isInitialized(true);
         }
     }
 
@@ -100,42 +96,70 @@ const GoogleMaps = ( {userId} ) => {
     }, [markers, map, maps]);
 
     useEffect(()=> {
-        if(userId) fetch( userId );
-        else isFetchingData(false);
-        console.log(markers)
-        setInterval( () => {
-            fetchRealTimeData(userId);
-        }, 1000 );
-
-        return () => {
-            // clearInterval(realTime);
-        }
+            if(userId) fetch( userId );
+            else isFetchingData(false);
+            console.log(markers)
+            const interval = setInterval( () => {
+                fetchRealTimeData(userId);
+            }, 1000 );
+    
+            return () => {
+                clearInterval(interval);
+            }
     }, []);
+
+    // animation de la carte
+    useEffect(function(){
+        setReloadMap(true);
+        const centers = data
+        ? { lat: data.latitude, lng: data.longitude }
+        : { lat: -18.8792, lng: 47.5079 };
+    
+        
+        const INITIAL = {
+            center: centers,
+            zoom: 12
+        };
+        
+        setCameraProps(INITIAL);
+        setReloadMap(false);
+    }, [data]);
 
         
     return (
-            <div class="map" style={{height: "500px"}}>
-                {
-                    initalizeMap &&
-                    <Map mapId={"f75d626b86ee154c"} {...cameraProps} onCameraChanged={handleCameraChange}>
-                        {
-                            !fetchData && markers.map((marker, index) => {
-                                const isLastMarker = index === markers.length - 1;
-
-                                return (
-                                <CustomPin 
-                                    key={index} 
-                                    lat={marker.lat} 
-                                    long={marker.lng} 
+        <div className="map" style={{ "height": "500px" }}>
+            {  (
+                !reloadMap && <Map mapId={"f75d626b86ee154c"} {...cameraProps} onCameraChanged={handleCameraChange}>
+                    {/* Afficher les markers existants */}
+                    {!fetchData &&
+                        markers.map((marker, index) => {
+                            const isLastMarker = index === markers.length - 1;
+                            return (
+                                <CustomPin
+                                    key={index}
+                                    lat={marker.lat}
+                                    long={marker.lng}
                                     isLast={isLastMarker} // Passer la prop isLast pour colorer le dernier marqueur
                                 />
-                                );
-                            })
-                            }
-                    </Map>
-                }
-            </div>
-    )
+                            );
+                        })
+                    }
+                    {data && (
+                        <CustomPin
+                            key="red-marker"
+                            lat={data.latitude}
+                            long={data.longitude}
+                            isLast={false} // Peut être ajusté selon si vous voulez un effet spécial pour ce marker
+                            icon={{
+                                url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png", // Icône rouge
+                            }}
+                        />
+                    )}
+                </Map>
+            )}
+        </div>
+    );
+    
 }
 
 export default GoogleMaps;

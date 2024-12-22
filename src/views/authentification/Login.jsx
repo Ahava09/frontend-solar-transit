@@ -11,8 +11,8 @@ import { saveToken } from "../../hooks/useToken";
 
 const Login = () => {
 
-    const[username, setUsername] = useState(undefined);
-    const[password, setPassword] = useState(undefined);
+    const[username, setUsername] = useState("rakoto.andry@example.mg");
+    const[password, setPassword] = useState("password123");
 
     const[loginError, setLoginError] = useState(undefined);
 
@@ -26,7 +26,7 @@ const Login = () => {
 
             if( status >= 200 && status <= 205 ) {
                 saveToken(data);
-                navigate("/admin");
+                navigate("/map");
             } else if (status >= 400 && status <= 420){
                 setLoginError(data);
             }
