@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-// import Link from "../basic/Link";
-// import List from "../basic/List";
 import GoogleMaps from "../maps/GoogleMap";
-// import ListUser from "./ListUser";
 import { fetchUtilisateurs } from "../../services/CoordinateServices";
 
 

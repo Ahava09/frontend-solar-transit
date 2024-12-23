@@ -101,7 +101,7 @@ const GoogleMaps = ( {userId, data} ) => {
             console.log(markers)
             const interval = setInterval( () => {
                 fetchRealTimeData(userId);
-            }, 1000 );
+            }, 5000 );
     
             return () => {
                 clearInterval(interval);
@@ -129,7 +129,7 @@ const GoogleMaps = ( {userId, data} ) => {
     return (
         <div className="map" style={{ "height": "500px" }}>
             {  (
-                !reloadMap && <Map mapId={"f75d626b86ee154c"} {...cameraProps} onCameraChanged={handleCameraChange}>
+                 <Map mapId={"f75d626b86ee154c"} {...cameraProps} onCameraChanged={handleCameraChange}>
                     {/* Afficher les markers existants */}
                     {!fetchData &&
                         markers.map((marker, index) => {
