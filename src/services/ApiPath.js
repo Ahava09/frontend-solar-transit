@@ -7,7 +7,6 @@ const APIPATH = {
     "login" : HOST + "api/login",
     "users" : HOST + "api/users",
     "address" : HOST + "api/geocoding",
-
 };
 
 export default APIPATH;

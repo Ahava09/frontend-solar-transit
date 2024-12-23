@@ -23,7 +23,7 @@ const Header = ({setAddress, handleAdress}) => {
                     </div>
                         
                     <div className="flex items-center space-x-6 rtl:space-x-reverse">
-                        <Link lien={"#"} classes={"text-sm text-blue-600 dark:text-blue-500 hover:underline"}>
+                        <Link lien={"/"} classes={"text-sm text-blue-600 dark:text-blue-500 hover:underline"}>
                             Se deconnecter
                         </Link>
                         {/* <a href="tel:5541251234" class="text-sm  text-gray-500 dark:text-white hover:underline">(555) 412-1234</a> */}
